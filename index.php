@@ -6,12 +6,22 @@
 	<link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
 	<title>Jaha</title>
 	<style type="text/css">
+		body {
+			background-color: #eedfcc;
+		}
 		main {
 			width: 80%;
 			margin: 0px auto;
 		}
 		p, h1, head {
 			font-family: 'Merriweather', serif;
+		}
+		fieldset{
+			background-color: white;
+		}
+		legend {
+			background-color: white;
+			border: 1px solid grey;
 		}
 
 	</style>
