@@ -1,19 +1,41 @@
 <?php
 session_start();
-if(isset($_POST['submit'])) { // kollar om post[submit] har ett värde
+?>
 
-	$loginCredentials = ["username" => "David", "password" => "pw"];
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Inloggad</title>
+</head>
+<body>
 
-	if(isset($_POST['username']) && isset($_POST['password'])) {
+
+<?php
+if(isset($_POST['submit'])) 
+{ // kollar om post[submit] har ett värde
+	include 'db.php';
+/*
+	
+	echo htmlentities($row['some_field']);
+*/
+	if(isset($_POST['username']) && isset($_POST['password']))
+	{
 		$username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_STRING);
-		$password = md5($_POST['password']);
+		$password = $_POST['password'];
 
-		echo $password;
-		if($username == $loginCredentials['username'] && $password == md5($loginCredentials['password'])) {
-			echo "<h1>Du är egentligen inte välkommen här, men jag kan göra ett undantag</h1>";
-		} elseif ($username != $loginCredentials['username'] || $password != $loginCredentials['password']) {
-			echo "<h1>Fel uppgifter</h1>";
+		$statement = $dbh->query("SELECT * FROM login");
+		$row = $statement->fetch(PDO::FETCH_ASSOC);
+
+
+		if($username == $row['username'] && password_verify($password, $row['password'])) 
+		{
+			echo "<h1>Välkommen till the halls of shadows, du är en äkta rogue, håhå!</h1>";
 		}
+		else
+		{
+			echo "<h1>Fel som en bit kamel i en falafel eller när Kevin kopplar el medan han spelar spel, då är han inte hel utan han är endast en del</h1>";
+		} 
 	}
 
 
@@ -23,3 +45,5 @@ if(isset($_POST['submit'])) { // kollar om post[submit] har ett värde
 	echo "<h1>Jaha</h1>";
 }
 ?>
+</body>
+</html>
